@@ -23,15 +23,21 @@ const todo = (state = {todos:[], filter:'ALL'}, action) => {
           }
         ]
       }
-    case ('COMPLETE_TODO'):
-      let r = [...state.todos];
-      r[action.payload] = {
-        ...state.todos[action.payload],
-        completed: !state.todos[]
+    case ('TOGGLE_TODO'):
+      let todos = [...state.todos];
+      todos[action.payload] = {
+        ...todos[action.payload],
+        completed: !todos[action.payload].completed;
       }
-      r[action.payload].completed = !r[action.payload].completed;
+      return (
+        ...state,
+        todos
+      )
     case ('SET_FILTER'):
-      return state;
+      return (
+        ...state,
+        filter : action.payload;
+      )
     default:
       return state;
 
